@@ -31,3 +31,11 @@ class TestPdfGeneration(unittest.TestCase):
         ])
         pg = PdfGenerator(config)
         self.assertEqual(pg.num_pages(), 5)
+
+    def test_variant_count(self):
+        config = self.config_with_pages([
+            {"count": 2, "type": "blank", "variants": ["a", "b"]},
+            {"count": 3, "type": "blank"}
+        ])
+        pg = PdfGenerator(config)
+        self.assertEqual(pg.num_pages(), 7)
