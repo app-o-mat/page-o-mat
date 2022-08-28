@@ -1,7 +1,7 @@
 import argparse
 
 
-class JGArgParser:
+class CliArgParser:
 
     arg_parser = None
     args = None
@@ -11,7 +11,7 @@ class JGArgParser:
         if parser is not None:
             self.arg_parser = parser
         else:
-            self.arg_parser = argparse.ArgumentParser(description="Runs Journal Generator")
+            self.arg_parser = argparse.ArgumentParser(description="Runs Page-o-Mat")
 
         self.arg_parser.add_argument(
             "--config", help="name of the journal config file", required=True
