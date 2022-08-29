@@ -6,35 +6,40 @@ defaults:
     spacing: 5mm
 
 pages:
-- type: blank
+- type: simple
   title: 2023 Plan
 
-- type: 13-day
+- type: horizontal-split
+  split-count: 13
   title: Daily Summary
   count: 28
 
-- type: blank
+- type: simple
   title: Sunday - January 1
 
-- type: blank
+- type: simple
 
-- type: 2-day
+- type: horizontal-split
+  split-count: 2
   title: 13 Week Plan
   count: 2
 
 - count: 2
   pages:
-  - type: 2-day
+  - type: horizontal-split
+    split-count: 2
     title: 4 Week Plan
     count: 2
 
   - count: 4
     pages:
-    - type: 2-day
+    - type: horizontal-split
+      split-count: 2
       title: 1 Week Plan
       count: 2
 
-    - type: 2-day
+    - type: horizontal-split
+      split-count: 2
       title: "$variant"
       count: 2
       variants:
@@ -45,25 +50,30 @@ pages:
       - Friday
       - Weekend
 
-    - type: 2-day
+    - type: horizontal-split
+      split-count: 2
       title: 1 Week Retro
       count: 2
 
-  - type: 2-day
+  - type: horizontal-split
+    split-count: 2
     title: 4 Week Retro
     count: 2
 
-- type: 2-day
+- type: horizontal-split
+  split-count: 2
   title: 5 Week Plan
   count: 2
 
 - count: 5
   pages:
-  - type: 2-day
+  - type: horizontal-split
+    split-count: 2
     title: 1 Week Plan
     count: 2
 
-  - type: 2-day
+  - type: horizontal-split
+    split-count: 2
     title: "$variant"
     count: 2
     variants:
@@ -74,18 +84,21 @@ pages:
     - Friday
     - Weekend
 
-  - type: 2-day
+  - type: horizontal-split
+    split-count: 2
     title: 1 Week Retro
     count: 2
 
-- type: 2-day
+- type: horizontal-split
+  split-count: 2
   title: 5 Week Retro
   count: 2
 
-- type: 2-day
+- type: horizontal-split
+  split-count: 2
   title: 13 Week Retro
   count: 2
 
-- type: blank
+- type: simple
   title: 2023 Retro
   count: 2

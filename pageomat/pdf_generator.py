@@ -1,3 +1,7 @@
+from importlib import import_module
+from fpdf import FPDF
+
+
 class PdfGenerator:
 
     config = None
@@ -23,14 +27,49 @@ class PdfGenerator:
             return "mm"
         return "in"
 
+    def make_pdf(self, filename):
+        pdf = FPDF(format=self.page_size(), unit=self.page_unit())
+        pdf.set_auto_page_break(False)
+        for page in self.pages():
+            pdf.add_page()
+            self.render_paper(page, pdf)
+            self.render_template(page, pdf)
+
+        pdf.output(filename)
+
+    def render_paper(self, page, pdf):
+        paper_module_name = self.module_for_paper(page)
+        paper_module = import_module(paper_module_name)
+        paper = paper_module.make_paper()
+        paper.render_into(pdf)
+
+    def render_template(self, page, pdf):
+        template_module_name = self.module_for_template(page)
+        template_module = import_module(template_module_name)
+        pdf_page = template_module.make_template()
+        pdf_page.render_into(pdf)
+
     def module_for_paper(self, page):
         paper_prefix = "pageomat.pages.paper."
+        module = ""
         if "paper" in page:
-            return paper_prefix + page["paper"]["type"]
+            module = paper_prefix + page["paper"]["type"]
         elif "defaults" in self.config and "paper" in self.config["defaults"]:
-            return paper_prefix + self.config["defaults"]["paper"]["type"]
+            module = paper_prefix + self.config["defaults"]["paper"]["type"]
         else:
-            return paper_prefix + "blank"
+            module = paper_prefix + "blank"
+        return module.replace("-", "_")
+
+    def module_for_template(self, page):
+        template_prefix = "pageomat.pages.template."
+        module = ""
+        if "type" in page:
+            module = template_prefix + page["type"]
+        elif "defaults" in self.config and "type" in self.config["defaults"]:
+            module = template_prefix + self.config["defaults"]["type"]
+        else:
+            module = template_prefix + "simple"
+        return module.replace("-", "_")
 
     def pages_from_subpages(self, pages):
         result = []
