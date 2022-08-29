@@ -14,7 +14,7 @@ class CliArgParser:
             self.arg_parser = argparse.ArgumentParser(description="Runs Page-o-Mat")
 
         self.arg_parser.add_argument(
-            "--config", help="name of the journal config file", required=True
+            "--config", help="name of the journal YAML config file", required=True
         )
         self.arg_parser.add_argument(
             "--output", help="name of the pdf file", required=True

@@ -1,0 +1,42 @@
+---
+page-size: A5
+default-blank:
+  type: dot
+  spacing: 5mm
+
+pages:
+- type: blank
+  title: 2023 Plan
+
+- type: 13-day
+  title: Daily Summary
+  count: 28
+
+- type: blank
+
+- type: 2-day
+  count: 2
+  title: 13 Week Plan
+
+- type: 2-day
+  title: 4 Week Plan
+  count: 2
+
+- type: 2-day
+  count: 2
+  title: 1 Week Plan
+
+- type: 2-day
+  title: "$variant"
+  count: 2
+  variants:
+  - Monday
+  - Tuesday
+  - Wednesday
+  - Thursday
+  - Friday
+  - Weekend
+
+- type: 2-day
+  title: 1 Week Retro
+  count: 2
