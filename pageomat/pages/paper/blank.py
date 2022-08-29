@@ -7,5 +7,5 @@ def make_paper():
 
 class BlankPaper(Page):
 
-    def render_into(self, pdf):
-        pass
+    def render_into(self, config, paper, pdf):
+        super().render_into(config, paper, pdf)

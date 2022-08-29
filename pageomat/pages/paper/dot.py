@@ -1,11 +1,11 @@
-from pageomat.pages.page import Page
+from pageomat.pages.page import Paper
 
 
 def make_paper():
     return DotPaper()
 
 
-class DotPaper(Page):
+class DotPaper(Paper):
 
-    def render_into(self, pdf):
-        pass
+    def render_into(self, config, paper, pdf):
+        super().render_into(config, paper, pdf)
