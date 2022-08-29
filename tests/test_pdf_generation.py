@@ -4,6 +4,20 @@ from pageomat.pdf_generator import PdfGenerator
 
 
 class TestPdfGeneration(unittest.TestCase):
+
+    def test_page_size_default(self):
+        config = mock_config([{"type": "blank"}])
+        pg = PdfGenerator(config)
+        self.assertEqual(pg.page_size(), "A5")
+        self.assertEqual(pg.page_unit(), "mm")
+
+    def test_page_size(self):
+        config = mock_config([{"type": "blank"}])
+        config["page-size"] = "Letter"
+        pg = PdfGenerator(config)
+        self.assertEqual(pg.page_size(), "Letter")
+        self.assertEqual(pg.page_unit(), "in")
+
     def test_one_blank(self):
         config = mock_config([{"type": "blank"}])
         pg = PdfGenerator(config)
