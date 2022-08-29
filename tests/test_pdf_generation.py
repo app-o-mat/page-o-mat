@@ -39,3 +39,21 @@ class TestPdfGeneration(unittest.TestCase):
         ])
         pg = PdfGenerator(config)
         self.assertEqual(pg.num_pages(), 7)
+
+    def test_flatten_pages(self):
+        config = self.config_with_pages([
+            {"count": 2, "type": "blank", "variants": ["a", "b"]},
+            {"count": 3, "type": "blank"}
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages()
+        self.assertEqual(pages[0], {"type": "blank", "variant": "a"})
+        # self.assertEqual(pages, [
+        #     {"type": "blank", "variant": "a"},
+        #     {"type": "blank", "variant": "a"},
+        #     {"type": "blank", "variant": "b"},
+        #     {"type": "blank", "variant": "b"},
+        #     {"type": "blank"},
+        #     {"type": "blank"},
+        #     {"type": "blank"}
+        # ])
