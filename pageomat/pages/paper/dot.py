@@ -2,10 +2,10 @@ from pageomat.pages.page import Page
 
 
 def make_paper():
-    return BlankPaper()
+    return DotPaper()
 
 
-class BlankPaper(Page):
+class DotPaper(Page):
 
     def render_into(self, pdf):
         pass

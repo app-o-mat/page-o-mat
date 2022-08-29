@@ -1,11 +1,11 @@
 from pageomat.pages.page import Page
 
 
-def make_paper():
-    return BlankPaper()
+def make_template():
+    return SimpleTemplate()
 
 
-class BlankPaper(Page):
+class SimpleTemplate(Page):
 
     def render_into(self, pdf):
         pass
