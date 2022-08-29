@@ -1,8 +1,9 @@
 ---
 page-size: A5
-default-blank:
-  type: dot
-  spacing: 5mm
+defaults:
+  blank:
+    type: dot
+    spacing: 5mm
 
 pages:
 - type: blank
