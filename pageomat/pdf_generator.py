@@ -12,6 +12,15 @@ class PdfGenerator:
         '''Returns a flattened array of the pages'''
         return self.pages_from_subpages(self.config["pages"])
 
+    def module_for_paper(self, page):
+        paper_prefix = "pageomat.pages.paper."
+        if "paper" in page:
+            return paper_prefix + page["paper"]["type"]
+        elif "defaults" in self.config and "paper" in self.config["defaults"]:
+            return paper_prefix + self.config["defaults"]["paper"]["type"]
+        else:
+            return paper_prefix + "blank"
+
     def pages_from_subpages(self, pages):
         result = []
         for p in pages:
