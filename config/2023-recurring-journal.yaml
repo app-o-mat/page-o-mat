@@ -1,5 +1,7 @@
 ---
 page-size: A5
+pdf-title: 2023 Recurring Journal
+pdf-author: Lou Franco
 defaults:
   paper:
     type: dot

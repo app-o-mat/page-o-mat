@@ -1,7 +1,6 @@
 from importlib import import_module
 from fpdf import FPDF
-
-from pageomat.config import config_page_attribute
+from pageomat.config import config_attribute, config_page_attribute
 
 
 class PdfGenerator:
@@ -32,6 +31,8 @@ class PdfGenerator:
     def make_pdf(self, filename):
         pdf = FPDF(format=self.page_size(), unit=self.page_unit())
         pdf.set_auto_page_break(False)
+        pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
+        pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
         for page in self.pages():
             pdf.add_page()
             self.render_paper(page, pdf)
