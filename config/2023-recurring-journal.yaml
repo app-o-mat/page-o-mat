@@ -13,30 +13,78 @@ pages:
   count: 28
 
 - type: blank
+  title: Sunday - January 1
+
+- type: blank
 
 - type: 2-day
-  count: 2
   title: 13 Week Plan
+  count: 2
+
+- count: 2
+  pages:
+  - type: 2-day
+    title: 4 Week Plan
+    count: 2
+
+  - count: 4
+    pages:
+    - type: 2-day
+      title: 1 Week Plan
+      count: 2
+
+    - type: 2-day
+      title: "$variant"
+      count: 2
+      variants:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Weekend
+
+    - type: 2-day
+      title: 1 Week Retro
+      count: 2
+
+  - type: 2-day
+    title: 4 Week Retro
+    count: 2
 
 - type: 2-day
-  title: 4 Week Plan
+  title: 5 Week Plan
+  count: 2
+
+- count: 5
+  pages:
+  - type: 2-day
+    title: 1 Week Plan
+    count: 2
+
+  - type: 2-day
+    title: "$variant"
+    count: 2
+    variants:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Weekend
+
+  - type: 2-day
+    title: 1 Week Retro
+    count: 2
+
+- type: 2-day
+  title: 5 Week Retro
   count: 2
 
 - type: 2-day
+  title: 13 Week Retro
   count: 2
-  title: 1 Week Plan
 
-- type: 2-day
-  title: "$variant"
-  count: 2
-  variants:
-  - Monday
-  - Tuesday
-  - Wednesday
-  - Thursday
-  - Friday
-  - Weekend
-
-- type: 2-day
-  title: 1 Week Retro
+- type: blank
+  title: 2023 Retro
   count: 2
