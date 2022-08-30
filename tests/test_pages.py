@@ -13,12 +13,12 @@ class TestPages(unittest.TestCase):
         self.assertEqual(pg.module_for_template(p), "pageomat.pages.template.simple")
 
     def test_default_paper_override(self):
-        p = {"type": "horizontal-split"}
+        p = {"type": "horizontal-sections"}
         c = mock_config([p])
         c["defaults"] = {"paper": {"type": "grid"}}
         pg = PdfGenerator(c)
         self.assertEqual(pg.module_for_paper(p), "pageomat.pages.paper.grid")
-        self.assertEqual(pg.module_for_template(p), "pageomat.pages.template.horizontal_split")
+        self.assertEqual(pg.module_for_template(p), "pageomat.pages.template.horizontal_sections")
 
     def test_page_paper_override(self):
         p = {"type": "simple", "paper": {"type": "dot"}}
