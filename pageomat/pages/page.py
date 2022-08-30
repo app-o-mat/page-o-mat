@@ -1,3 +1,4 @@
+from math import floor
 from pageomat.config import config_page_attribute
 from pageomat.pages.color_utils import hex2red, hex2green, hex2blue
 
@@ -23,6 +24,11 @@ class Page:
     def page_height(self, config):
         page_size = config["page-size"]
         return page_sizes[page_size][1]
+
+    def grid_snap_value(self, grid_snap, value):
+        if grid_snap > 0:
+            return floor(value / grid_snap) * grid_snap
+        return value
 
 
 class Paper(Page):
