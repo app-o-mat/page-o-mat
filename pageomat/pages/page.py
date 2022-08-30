@@ -30,6 +30,11 @@ class Paper(Page):
     def render_into(self, config, paper, pdf):
         super().render_into(pdf)
 
+    def paper_attribute(self, paper, key, default_value):
+        if key in paper:
+            return paper[key]
+        return default_value
+
 
 class TemplatePage(Page):
     '''Base class for templates'''
