@@ -1,6 +1,7 @@
 from importlib import import_module
 from fpdf import FPDF
 from pageomat.config import config_attribute, config_page_attribute
+from pageomat.pages.page import page_sizes
 
 
 class PdfGenerator:
@@ -23,10 +24,7 @@ class PdfGenerator:
         return "A5"
 
     def page_unit(self):
-        size = self.page_size()
-        if size.startswith("A"):
-            return "mm"
-        return "in"
+        return page_sizes[self.page_size()][2]
 
     def make_pdf(self, filename):
         pdf = FPDF(format=self.page_size(), unit=self.page_unit())
