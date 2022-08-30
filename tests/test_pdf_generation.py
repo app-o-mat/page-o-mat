@@ -106,3 +106,24 @@ class TestPdfGeneration(unittest.TestCase):
             {"type": "blank", "variant": "b"},
             {"type": "blank", "variant": "b"},
         ])
+
+    def test_substitute_variables(self):
+        pg = PdfGenerator({})
+        self.assertEqual(pg.substitute_variables("", {}), "")
+        self.assertEqual(pg.substitute_variables("a", {}), "a")
+        self.assertEqual(pg.substitute_variables("a", {"variant": "XX"}), "a")
+        self.assertEqual(pg.substitute_variables("a$variant$", {"variant": "XX"}), "aXX")
+        self.assertEqual(pg.substitute_variables("$variant$$variant$", {"variant": "XX"}), "XXXX")
+
+    def test_sub_variables_in_page(self):
+        config = mock_config([
+            {"count": 2, "type": "blank", "variants": ["a", "b"], "title": "$variant$"}
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages()
+        self.assertEqual(pages, [
+            {"type": "blank", "variant": "a", "title": "a"},
+            {"type": "blank", "variant": "a", "title": "a"},
+            {"type": "blank", "variant": "b", "title": "b"},
+            {"type": "blank", "variant": "b", "title": "b"},
+        ])

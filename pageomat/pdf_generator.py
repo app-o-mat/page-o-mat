@@ -1,3 +1,4 @@
+from datetime import datetime
 from importlib import import_module
 from fpdf import FPDF
 from pageomat.config import config_attribute, config_page_attribute
@@ -88,13 +89,26 @@ class PdfGenerator:
         return key not in {"count", "variants", "pages"}
 
     def flatten_page(self, page, variant, parent_variant):
-        result = {k: page[k] for k in filter(self.include_for_flatten, page.keys())}
-
         if variant is not None:
             if parent_variant is not None:
                 variant = variant.replace("$variant$", parent_variant)
-            result["variant"] = variant
         elif parent_variant is not None:
-            result["variant"] = parent_variant
+            variant = parent_variant
+
+        result = {k: page[k] for k in filter(self.include_for_flatten, page.keys())}
+
+        if variant is not None:
+            result["variant"] = variant
+
+        result = {k: self.substitute_variables(result[k], result) for k in result.keys()}
 
         return result
+
+    def substitute_variables(self, value, page):
+        if type(value) is not str:
+            return value
+
+        if "variant" in page and page["variant"] is not None:
+            value = value.replace("$variant$", page["variant"])
+
+        return value
