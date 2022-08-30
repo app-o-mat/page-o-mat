@@ -97,6 +97,13 @@ class PdfGenerator:
 
         result = {k: page[k] for k in filter(self.include_for_flatten, page.keys())}
 
+        year = config_page_attribute(self.config, page, "year", None)
+        if year is not None:
+            day_of_year = config_page_attribute(self.config, page, "day-of-year", 1)
+            date_format = config_page_attribute(self.config, page, "date-format", "%y-%MM-%dd")
+            date = datetime.strptime(str(year) + "-" + str(day_of_year), "%Y-%j")
+            result["date"] = datetime.strftime(date, date_format)
+
         if variant is not None:
             result["variant"] = variant
 
@@ -110,5 +117,8 @@ class PdfGenerator:
 
         if "variant" in page and page["variant"] is not None:
             value = value.replace("$variant$", page["variant"])
+
+        if "date" in page:
+            value = value.replace("$date$", page["date"])
 
         return value
