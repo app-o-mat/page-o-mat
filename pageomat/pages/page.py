@@ -50,4 +50,5 @@ class TemplatePage(Page):
         pdf.set_font(font["family"], size=font["size"])
         color = config_page_attribute(config, page, "title-color", "#000")
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
-        pdf.cell(0, txt=page["title"])
+        align = config_page_attribute(config, page, "title-align", "Left")
+        pdf.cell(0, txt=page["title"], align=align[0].capitalize())
