@@ -64,7 +64,7 @@ class PdfGenerator:
         module = "pageomat.pages.template." + self.page_attribute(page, "type", "simple")
         return module.replace("-", "_")
 
-    def pages_from_subpages(self, pages):
+    def pages_from_subpages(self, pages, parent_variant=None):
         result = []
         for p in pages:
             count = 1
@@ -78,19 +78,23 @@ class PdfGenerator:
             for v in variants:
                 for _ in range(0, count):
                     if "pages" in p:
-                        result = result + self.pages_from_subpages(p["pages"])
+                        result = result + self.pages_from_subpages(p["pages"], parent_variant=v if v is not None else parent_variant)
                     else:
-                        result.append(self.flatten_page(p, v))
+                        result.append(self.flatten_page(p, v, parent_variant))
 
         return result
 
     def include_for_flatten(self, key):
         return key not in {"count", "variants", "pages"}
 
-    def flatten_page(self, page, variant):
+    def flatten_page(self, page, variant, parent_variant):
         result = {k: page[k] for k in filter(self.include_for_flatten, page.keys())}
 
         if variant is not None:
+            if parent_variant is not None:
+                variant = variant.replace("$variant$", parent_variant)
             result["variant"] = variant
+        elif parent_variant is not None:
+            result["variant"] = parent_variant
 
         return result

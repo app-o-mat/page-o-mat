@@ -30,6 +30,11 @@ class Page:
             return floor(value / grid_snap) * grid_snap
         return value
 
+    def substitute_variables(self, str, page):
+        if "variant" in page:
+            str = str.replace("$variant$", page["variant"])
+        return str
+
 
 class Paper(Page):
     '''Base class for paper'''
@@ -52,9 +57,12 @@ class TemplatePage(Page):
         if "title" not in page:
             return
 
+        title = page["title"]
+        title = self.substitute_variables(title, page)
+
         font = config_page_attribute(config, page, "title-font", {"family": "Helvetica", "size": 16})
         pdf.set_font(font["family"], size=font["size"])
         color = config_page_attribute(config, page, "title-color", "#000")
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
         align = config_page_attribute(config, page, "title-align", "Left")
-        pdf.cell(0, txt=page["title"], align=align[0].capitalize())
+        pdf.cell(0, txt=title, align=align[0].capitalize())

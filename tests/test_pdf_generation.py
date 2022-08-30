@@ -64,6 +64,28 @@ class TestPdfGeneration(unittest.TestCase):
             {"type": "blank"}
         ])
 
+    def test_flatten_pages_parent_variant(self):
+        config = mock_config([
+            {"variants": ["a", "b"], "pages": [{"type": "blank"}]},
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages()
+        self.assertEqual(pages, [
+            {"type": "blank", "variant": "a"},
+            {"type": "blank", "variant": "b"}
+        ])
+
+    def test_flatten_pages_parent_variant_override(self):
+        config = mock_config([
+            {"variants": ["a", "b"], "pages": [{"type": "blank", "variants": ["$variant$ c"]}]},
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages()
+        self.assertEqual(pages, [
+            {"type": "blank", "variant": "a c"},
+            {"type": "blank", "variant": "b c"}
+        ])
+
     def test_flatten_sub_pages(self):
         config = mock_config([
             {"count": 3, "pages": [{"count": 2, "type": "blank", "variants": ["a", "b"]}]}
