@@ -43,11 +43,3 @@ class TestPages(unittest.TestCase):
         self.assertEqual(p.grid_snap_value(5, 6), 5)
         self.assertEqual(p.grid_snap_value(5, 10.2), 10)
         self.assertEqual(p.grid_snap_value(5, 28.2), 25)
-
-    def test_substitute_variables(self):
-        p = Page()
-        self.assertEqual(p.substitute_variables("", {}), "")
-        self.assertEqual(p.substitute_variables("a", {}), "a")
-        self.assertEqual(p.substitute_variables("a", {"variant": "XX"}), "a")
-        self.assertEqual(p.substitute_variables("a$variant$", {"variant": "XX"}), "aXX")
-        self.assertEqual(p.substitute_variables("$variant$$variant$", {"variant": "XX"}), "XXXX")
