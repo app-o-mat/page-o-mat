@@ -47,6 +47,7 @@ class TemplatePage(Page):
     def render_into(self, config, page, pdf):
         super().render_into(pdf)
         self.render_title(config, page, pdf)
+        self.render_footer(config, page, pdf)
 
     def render_title(self, config, page, pdf):
         if "title" not in page:
@@ -60,3 +61,19 @@ class TemplatePage(Page):
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
         align = config_page_attribute(config, page, "title-align", "Left")
         pdf.cell(0, txt=title, align=align[0].capitalize())
+
+    def render_footer(self, config, page, pdf):
+        footer = config_page_attribute(config, page, "footer", None)
+        if footer is None:
+            return
+
+        footer = footer.replace("$page$", str(pdf.page_no()))
+        footer_offset = config_page_attribute(config, page, "footer-offset", 2.5)
+        pdf.set_y(-footer_offset)
+
+        font = config_page_attribute(config, page, "footer-font", {"family": "Helvetica", "size": 16})
+        pdf.set_font(font["family"], size=font["size"])
+        color = config_page_attribute(config, page, "footer-color", "#000")
+        pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
+        align = config_page_attribute(config, page, "footer-align", "Left")
+        pdf.cell(0, txt=footer, align=align[0].capitalize())
