@@ -9,6 +9,7 @@ defaults:
     dot-size: 0.5
     color: "#aaa"
   grid-snap: 5
+  top-margin: 7
   title-font:
     family: Helvetica
     size: 16
