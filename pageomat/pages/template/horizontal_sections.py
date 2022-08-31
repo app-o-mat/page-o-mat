@@ -1,7 +1,7 @@
-from datetime import datetime
 from math import floor
 from pageomat.config import config_page_attribute
 from pageomat.pages.color_utils import hex2blue, hex2green, hex2red
+from pageomat.pages.date_utils import date_replace
 from pageomat.pages.page import TemplatePage
 
 
@@ -49,9 +49,9 @@ class HorizontalSectionsTemplate(TemplatePage):
                 vars = {"__builtins__": None, "s": section}
                 vars.update(page["indices"])
                 if section_start_day_of_year is not None:
-                    title = self.date_replace(title, "section-start-date", year, section_start_day_of_year, section_date_format, vars)
+                    title = date_replace(title, "section-start-date", year, section_start_day_of_year, section_date_format, vars)
                 if section_end_day_of_year is not None:
-                    title = self.date_replace(title, "section-end-date", year, section_end_day_of_year, section_date_format, vars)
+                    title = date_replace(title, "section-end-date", year, section_end_day_of_year, section_date_format, vars)
 
                 pdf.text(section_left_margin, yPos - spacing + grid_snap - 1, title)
 
@@ -83,16 +83,3 @@ class HorizontalSectionsTemplate(TemplatePage):
 
                     section = y + y_lines if y < 0 else y + y_lines - 1  # 0 index
                     write_section_title()
-
-    def date_replace(self, title, key, year, day_of_year, date_format, vars):
-        doy = day_of_year
-        if type(day_of_year) is str:
-            try:
-                doy = eval(day_of_year, vars, {})
-            except BaseException:
-                print("Error evaluating: " + day_of_year)
-                print("with variables " + str(vars))
-                raise
-        date = datetime.strptime(str(year) + "-" + str(doy), "%Y-%j")
-        date_str = datetime.strftime(date, date_format)
-        return title.replace("$" + key + "$", date_str)
