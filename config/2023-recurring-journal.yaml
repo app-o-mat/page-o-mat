@@ -20,6 +20,7 @@ defaults:
     size: 10
   section-title-color: "#666"
   section-date-format: "%-d %b"
+  section-left-margin: 15
   line-color: "#ccc"
   line-width: 0.2
   year: 2023

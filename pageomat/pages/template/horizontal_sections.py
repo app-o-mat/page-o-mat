@@ -37,6 +37,7 @@ class HorizontalSectionsTemplate(TemplatePage):
         section_start_day_of_year = config_page_attribute(config, page, "section-start-day-of-year", None)
         section_end_day_of_year = config_page_attribute(config, page, "section-end-day-of-year", None)
         section_date_format = config_page_attribute(config, page, "section-date-format", "%y-%MM-%dd")
+        section_left_margin = config_page_attribute(config, page, "section-left-margin", 15)
         year = config_page_attribute(config, page, "year", 2023)
 
         def write_section_title():
@@ -52,7 +53,7 @@ class HorizontalSectionsTemplate(TemplatePage):
                 if section_end_day_of_year is not None:
                     title = self.date_replace(title, "section-end-date", year, section_end_day_of_year, section_date_format, vars)
 
-                pdf.text(10, yPos - spacing + grid_snap - 1, title)
+                pdf.text(section_left_margin, yPos - spacing + grid_snap - 1, title)
 
         if section_count % 2 == 0:
             # If we have an even number of sections, then the
