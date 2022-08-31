@@ -1,6 +1,6 @@
 from datetime import datetime
 from importlib import import_module
-from fpdf import FPDF
+from fpdf import FPDF, set_global
 from pageomat.config import config_attribute, config_page_attribute
 from pageomat.pages.page import page_sizes
 
@@ -32,6 +32,9 @@ class PdfGenerator:
         pdf.set_auto_page_break(False)
         pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
         pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
+
+        self.embed_fonts(pdf)
+
         for page in self.pages(include_indices=True):
             top_margin = config_page_attribute(self.config, page, "top-margin", None)
             if top_margin is not None:
@@ -41,6 +44,15 @@ class PdfGenerator:
             self.render_template(page, pdf)
 
         pdf.output(filename)
+
+    def embed_fonts(self, pdf):
+        set_global("FPDF_CACHE_MODE", 1)
+        if "defaults" in self.config and "embed-fonts" in self.config["defaults"]:
+            fonts = self.config["defaults"]["embed-fonts"]
+            for font in fonts:
+                family = font["family"]
+                fname = font["fname"]
+                pdf.add_font(family, '', fname, uni=True)
 
     def render_paper(self, page, pdf):
         paper_module_name = self.module_for_paper(page)
