@@ -46,9 +46,6 @@ class TemplatePage(Page):
     '''Base class for templates'''
     def render_into(self, config, page, pdf):
         super().render_into(pdf)
-        top_margin = config_page_attribute(config, page, "top-margin", None)
-        if top_margin is not None:
-            pdf.set_top_margin(top_margin)
         self.render_title(config, page, pdf)
         self.render_footer(config, page, pdf)
 

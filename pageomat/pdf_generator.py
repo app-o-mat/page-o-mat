@@ -33,6 +33,9 @@ class PdfGenerator:
         pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
         pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
         for page in self.pages(include_indices=True):
+            top_margin = config_page_attribute(self.config, page, "top-margin", None)
+            if top_margin is not None:
+                pdf.set_top_margin(top_margin)
             pdf.add_page()
             self.render_paper(page, pdf)
             self.render_template(page, pdf)
