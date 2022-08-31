@@ -48,8 +48,8 @@ pages:
   - type: horizontal-sections
     section-count: 13
     title: "Daily Summaries - $variant$"
-    section-title: "$section-date$"
-    section-day-of-year: "2 + 7 * c[0] + 28 * s + v"
+    section-title: "$section-start-date$"
+    section-start-day-of-year: "2 + 7 * c[0] + 28 * s + v"
     variants:
       - Monday
       - Tuesday
@@ -68,29 +68,35 @@ pages:
 
 - type: horizontal-sections
   section-count: 2
-  title: 13 Week Plan
+  section-title: "13 Week Plan: $section-start-date$ - $section-end-date$"
+  section-start-day-of-year: "2 + c[0] * (13*7*2) + s * (13*7)"
+  section-end-day-of-year: "2 + c[0] * (13*7*2) + s * (13*7) + (13*7-1)"
   count: 2
 
 - count: 2
   pages:
   - type: horizontal-sections
     section-count: 2
-    title: 4 Week Plan
+    section-title: "4 Week Plan: $section-start-date$ - $section-end-date$"
+    section-start-day-of-year: "2 + c[0] * 28 + c[1] * (13*7*2) + s * (13*7)"
+    section-end-day-of-year: "2 + c[0] * 28 + c[1] * (13*7*2) + s * (13*7) + (4*7-1)"
     count: 2
 
   - count: 4
     pages:
     - type: horizontal-sections
       section-count: 2
-      title: 1 Week Plan
+      section-title: "1 Week Plan: $section-start-date$ - $section-end-date$"
+      section-start-day-of-year: "2 + c[0] * 28 + c[1] * 7 + c[2] * (13*7*2) + s * (13*7)"
+      section-end-day-of-year: "2 + c[0] * 28 + c[1] * 7 + c[2] * (13*7*2) + s * (13*7) + (7-1)"
       count: 2
 
     - type: horizontal-sections
       section-count: 2
       count: 2
-      section-title: "$section-date$"
+      section-title: "$section-start-date$"
       section-date-format: "%A - %-d %b"
-      section-day-of-year: "2 + 28 * c[0] + 7 * c[1] + 182 * c[2] + 91 * s + v"
+      section-start-day-of-year: "2 + 28 * c[0] + 7 * c[1] + 182 * c[2] + 91 * s + v"
       variants:
       - Monday
       - Tuesday
@@ -102,35 +108,46 @@ pages:
 
     - type: horizontal-sections
       section-count: 2
-      title: 1 Week Retro
+      section-title: "1 Week Retro: $section-start-date$ - $section-end-date$"
+      section-start-day-of-year: "2 + c[0] * 28 + c[1] * 7 + c[2] * (13*7*2) + s * (13*7)"
+      section-end-day-of-year: "2 + c[0] * 28 + c[1] * 7 + c[2] * (13*7*2) + s * (13*7) + (7-1)"
       count: 2
 
     - type: simple
-      count: 4
+      count: 2
 
   - type: horizontal-sections
     section-count: 2
-    title: 4 Week Retro
+    section-title: "4 Week Retro: $section-start-date$ - $section-end-date$"
+    section-start-day-of-year: "2 + c[0] * 28 + c[1] * (13*7*2) + s * (13*7)"
+    section-end-day-of-year: "2 + c[0] * 28 + c[1] * (13*7*2) + s * (13*7) + (4*7-1)"
+    count: 2
+
+  - type: simple
     count: 2
 
 - type: horizontal-sections
   section-count: 2
-  title: 5 Week Plan
+  section-title: "5 Week Plan: $section-start-date$ - $section-end-date$"
+  section-start-day-of-year: "(2+8*7) + c[0] * (13*7*2) + s * (13*7)"
+  section-end-day-of-year: "(2+8*7) + c[0] * (13*7*2) + s * (13*7) + (5*7-1)"
   count: 2
 
 - count: 5
   pages:
   - type: horizontal-sections
     section-count: 2
-    title: 1 Week Plan
+    section-title: "1 Week Plan: $section-start-date$ - $section-end-date$"
+    section-start-day-of-year: "(2+8*7) + c[0] * 7 + c[1] * (13*7*2) + s * (13*7)"
+    section-end-day-of-year: "(2+8*7) + c[0] * 7 + c[1] * (13*7*2) + s * (13*7) + (7-1)"
     count: 2
 
   - type: horizontal-sections
     section-count: 2
     count: 2
-    section-title: "$section-date$"
+    section-title: "$section-start-date$"
     section-date-format: "%A - %-d %b"
-    section-day-of-year: "(2+8*7) + 7 * c[0] + 182 * c[1] + 91 * s + v"
+    section-start-day-of-year: "(2+8*7) + 7 * c[0] + 182 * c[1] + 91 * s + v"
     variants:
     - Monday
     - Tuesday
@@ -142,18 +159,29 @@ pages:
 
   - type: horizontal-sections
     section-count: 2
-    title: 1 Week Retro
+    section-title: "1 Week Retro: $section-start-date$ - $section-end-date$"
+    section-start-day-of-year: "(2+8*7) + c[0] * 7 + c[1] * (13*7*2) + s * (13*7)"
+    section-end-day-of-year: "(2+8*7) + c[0] * 7 + c[1] * (13*7*2) + s * (13*7) + (7-1)"
+    count: 2
+
+  - type: simple
     count: 2
 
 - type: horizontal-sections
   section-count: 2
-  title: 5 Week Retro
+  section-title: "5 Week Retro: $section-start-date$ - $section-end-date$"
+  section-start-day-of-year: "(2+8*7) + c[0] * (13*7*2) + s * (13*7)"
+  section-end-day-of-year: "(2+8*7) + c[0] * (13*7*2) + s * (13*7) + (5*7-1)"
   count: 2
 
 - type: horizontal-sections
   section-count: 2
-  title: 13 Week Retro
+  section-title: "13 Week Retro: $section-start-date$ - $section-end-date$"
+  section-start-day-of-year: "2 + c[0] * (13*7*2) + s * (13*7)"
+  section-end-day-of-year: "2 + c[0] * (13*7*2) + s * (13*7) + (13*7-1)"
   count: 2
 
 - type: simple
-  count: 8
+  count: 10
+
+- type: simple

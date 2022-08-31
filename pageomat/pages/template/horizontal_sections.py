@@ -34,26 +34,25 @@ class HorizontalSectionsTemplate(TemplatePage):
         section_color = config_page_attribute(config, page, "section-title-color", "#000")
         pdf.set_text_color(hex2red(section_color), hex2green(section_color), hex2blue(section_color))
 
-        section_day_of_year = config_page_attribute(config, page, "section-day-of-year", None)
+        section_start_day_of_year = config_page_attribute(config, page, "section-start-day-of-year", None)
+        section_end_day_of_year = config_page_attribute(config, page, "section-end-day-of-year", None)
         section_date_format = config_page_attribute(config, page, "section-date-format", "%y-%MM-%dd")
         year = config_page_attribute(config, page, "year", 2023)
 
         def write_section_title():
-            nonlocal section_day_of_year
+            nonlocal section_start_day_of_year
+            nonlocal section_end_day_of_year
             nonlocal section
             title = section_title
             if section_title is not None:
-                if section_day_of_year is not None:
-                    doy = section_day_of_year
-                    if type(section_day_of_year) is str:
-                        vars = {"__builtins__": None, "s": section}
-                        vars.update(page["indices"])
-                        doy = eval(section_day_of_year, vars, {})
-                    date = datetime.strptime(str(year) + "-" + str(doy), "%Y-%j")
-                    date_str = datetime.strftime(date, section_date_format)
-                    title = title.replace("$section-date$", date_str)
+                vars = {"__builtins__": None, "s": section}
+                vars.update(page["indices"])
+                if section_start_day_of_year is not None:
+                    title = self.date_replace(title, "section-start-date", year, section_start_day_of_year, section_date_format, vars)
+                if section_end_day_of_year is not None:
+                    title = self.date_replace(title, "section-end-date", year, section_end_day_of_year, section_date_format, vars)
 
-                pdf.text(10, yPos - spacing + grid_snap, title)
+                pdf.text(10, yPos - spacing + grid_snap - 1, title)
 
         if section_count % 2 == 0:
             # If we have an even number of sections, then the
@@ -83,3 +82,16 @@ class HorizontalSectionsTemplate(TemplatePage):
 
                     section = y + y_lines if y < 0 else y + y_lines - 1  # 0 index
                     write_section_title()
+
+    def date_replace(self, title, key, year, day_of_year, date_format, vars):
+        doy = day_of_year
+        if type(day_of_year) is str:
+            try:
+                doy = eval(day_of_year, vars, {})
+            except BaseException:
+                print("Error evaluating: " + day_of_year)
+                print("with variables " + str(vars))
+                raise
+        date = datetime.strptime(str(year) + "-" + str(doy), "%Y-%j")
+        date_str = datetime.strftime(date, date_format)
+        return title.replace("$" + key + "$", date_str)
