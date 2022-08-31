@@ -64,6 +64,35 @@ class TestPdfGeneration(unittest.TestCase):
             {"type": "blank"}
         ])
 
+    def test_simple_flatten_pages_indices(self):
+        config = mock_config([
+            {"type": "blank"},
+            {"type": "blank"}
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages(include_indices=True)
+        self.assertEqual(pages, [
+            {"type": "blank", "indices": {"p": 0, "c": [0], "v": 0}},
+            {"type": "blank", "indices": {"p": 1, "c": [0], "v": 0}}
+        ])
+
+    def test_flatten_pages_indices(self):
+        config = mock_config([
+            {"count": 2, "type": "blank", "variants": ["a", "b"]},
+            {"count": 3, "type": "blank"}
+        ])
+        pg = PdfGenerator(config)
+        pages = pg.pages(include_indices=True)
+        self.assertEqual(pages, [
+            {"type": "blank", "variant": "a", "indices": {"p": 0, "c": [0], "v": 0}},
+            {"type": "blank", "variant": "a", "indices": {"p": 1, "c": [1], "v": 0}},
+            {"type": "blank", "variant": "b", "indices": {"p": 2, "c": [0], "v": 1}},
+            {"type": "blank", "variant": "b", "indices": {"p": 3, "c": [1], "v": 1}},
+            {"type": "blank", "indices": {"p": 4, "c": [0], "v": 0}},
+            {"type": "blank", "indices": {"p": 5, "c": [1], "v": 0}},
+            {"type": "blank", "indices": {"p": 6, "c": [2], "v": 0}}
+        ])
+
     def test_flatten_pages_parent_variant(self):
         config = mock_config([
             {"variants": ["a", "b"], "pages": [{"type": "blank"}]},
@@ -91,20 +120,20 @@ class TestPdfGeneration(unittest.TestCase):
             {"count": 3, "pages": [{"count": 2, "type": "blank", "variants": ["a", "b"]}]}
         ])
         pg = PdfGenerator(config)
-        pages = pg.pages()
+        pages = pg.pages(include_indices=True)
         self.assertEqual(pages, [
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "b"},
-            {"type": "blank", "variant": "b"},
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "b"},
-            {"type": "blank", "variant": "b"},
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "a"},
-            {"type": "blank", "variant": "b"},
-            {"type": "blank", "variant": "b"},
+            {"type": "blank", "variant": "a", "indices": {"p": 0, "c": [0, 0], "v": 0}},
+            {"type": "blank", "variant": "a", "indices": {"p": 1, "c": [0, 1], "v": 0}},
+            {"type": "blank", "variant": "b", "indices": {"p": 2, "c": [0, 0], "v": 1}},
+            {"type": "blank", "variant": "b", "indices": {"p": 3, "c": [0, 1], "v": 1}},
+            {"type": "blank", "variant": "a", "indices": {"p": 4, "c": [1, 0], "v": 0}},
+            {"type": "blank", "variant": "a", "indices": {"p": 5, "c": [1, 1], "v": 0}},
+            {"type": "blank", "variant": "b", "indices": {"p": 6, "c": [1, 0], "v": 1}},
+            {"type": "blank", "variant": "b", "indices": {"p": 7, "c": [1, 1], "v": 1}},
+            {"type": "blank", "variant": "a", "indices": {"p": 8, "c": [2, 0], "v": 0}},
+            {"type": "blank", "variant": "a", "indices": {"p": 9, "c": [2, 1], "v": 0}},
+            {"type": "blank", "variant": "b", "indices": {"p": 10, "c": [2, 0], "v": 1}},
+            {"type": "blank", "variant": "b", "indices": {"p": 11, "c": [2, 1], "v": 1}},
         ])
 
     def test_substitute_variables(self):

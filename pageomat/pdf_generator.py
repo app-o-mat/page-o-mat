@@ -15,9 +15,9 @@ class PdfGenerator:
     def num_pages(self):
         return len(self.pages())
 
-    def pages(self):
+    def pages(self, include_indices=False):
         '''Returns a flattened array of the pages'''
-        return self.pages_from_subpages(self.config["pages"])
+        return self.pages_from_subpages(self.config["pages"], include_indices=include_indices)
 
     def page_size(self):
         if "page-size" in self.config:
@@ -32,7 +32,7 @@ class PdfGenerator:
         pdf.set_auto_page_break(False)
         pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
         pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
-        for page in self.pages():
+        for page in self.pages(include_indices=True):
             pdf.add_page()
             self.render_paper(page, pdf)
             self.render_template(page, pdf)
@@ -65,7 +65,7 @@ class PdfGenerator:
         module = "pageomat.pages.template." + self.page_attribute(page, "type", "simple")
         return module.replace("-", "_")
 
-    def pages_from_subpages(self, pages, parent_variant=None):
+    def pages_from_subpages(self, pages, page_start=0, parent_variant=None, include_indices=False, parent_count=[]):
         result = []
         for p in pages:
             count = 1
@@ -76,12 +76,24 @@ class PdfGenerator:
             if "variants" in p:
                 variants = p["variants"]
 
-            for v in variants:
-                for _ in range(0, count):
+            for vIndex, v in enumerate(variants):
+                for c in range(0, count):
                     if "pages" in p:
-                        result = result + self.pages_from_subpages(p["pages"], parent_variant=v if v is not None else parent_variant)
+                        result = result + self.pages_from_subpages(
+                            p["pages"],
+                            parent_variant=v if v is not None else parent_variant,
+                            include_indices=include_indices,
+                            parent_count=parent_count + [c],
+                            page_start=len(result))
                     else:
-                        result.append(self.flatten_page(p, v, parent_variant))
+                        page = self.flatten_page(p, v, parent_variant)
+                        if include_indices:
+                            page["indices"] = {
+                                "p": len(result) + page_start,
+                                "c": parent_count + [c],
+                                "v": vIndex
+                            }
+                        result.append(page)
 
         return result
 
