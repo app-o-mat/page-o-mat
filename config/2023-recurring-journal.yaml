@@ -5,107 +5,146 @@ pdf-author: Lou Franco
 defaults:
   paper:
     type: dot
-    spacing: 5mm
-    color: "#ccc"
+    spacing: 5
+    dot-size: 0.5
+    color: "#aaa"
+  grid-snap: 5
   title-font:
     family: Helvetica
     size: 16
   title-color: "#666"
+  title-align: Left
+  section-title-font:
+    family: Helvetica
+    size: 10
+  section-title-color: "#666"
+  section-date-format: "%-d %b"
+  line-color: "#ccc"
+  line-width: 0.2
+  year: 2023
+  date-format: "%-d %b"
 
 pages:
 - type: simple
   title: 2023 Plan
+  title-align: Center
 
-- type: horizontal-split
-  split-count: 13
-  title: Daily Summary
-  count: 28
+- count: 4
+  pages:
+  - type: horizontal-sections
+    section-count: 13
+    title: "Daily Summaries - $variant$"
+    title-align: Center
+    section-title: "$section-date$"
+    section-day-of-year: "2 + 7 * c[0] + 28 * s + v"
+    variants:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
 
 - type: simple
-  title: Sunday - January 1
+  title: "$date$"
+  day-of-year: 1
+  date-format: "%A - %-d %b"
 
 - type: simple
 
-- type: horizontal-split
-  split-count: 2
+- type: horizontal-sections
+  section-count: 2
   title: 13 Week Plan
   count: 2
 
 - count: 2
   pages:
-  - type: horizontal-split
-    split-count: 2
+  - type: horizontal-sections
+    section-count: 2
     title: 4 Week Plan
     count: 2
 
   - count: 4
     pages:
-    - type: horizontal-split
-      split-count: 2
+    - type: horizontal-sections
+      section-count: 2
       title: 1 Week Plan
       count: 2
 
-    - type: horizontal-split
-      split-count: 2
-      title: "$variant$"
+    - type: horizontal-sections
+      section-count: 2
       count: 2
+      section-title: "$section-date$"
+      section-date-format: "%A - %-d %b"
+      section-day-of-year: "2 + 28 * c[0] + 7 * c[1] + 182 * c[2] + 91 * s + v"
       variants:
       - Monday
       - Tuesday
       - Wednesday
       - Thursday
       - Friday
-      - Weekend
+      - Saturday
+      - Sunday
 
-    - type: horizontal-split
-      split-count: 2
+    - type: horizontal-sections
+      section-count: 2
       title: 1 Week Retro
       count: 2
 
-  - type: horizontal-split
-    split-count: 2
+    - type: simple
+      count: 4
+
+  - type: horizontal-sections
+    section-count: 2
     title: 4 Week Retro
     count: 2
 
-- type: horizontal-split
-  split-count: 2
+- type: horizontal-sections
+  section-count: 2
   title: 5 Week Plan
   count: 2
 
 - count: 5
   pages:
-  - type: horizontal-split
-    split-count: 2
+  - type: horizontal-sections
+    section-count: 2
     title: 1 Week Plan
     count: 2
 
-  - type: horizontal-split
-    split-count: 2
-    title: "$variant$"
+  - type: horizontal-sections
+    section-count: 2
     count: 2
+    section-title: "$section-date$"
+    section-date-format: "%A - %-d %b"
+    section-day-of-year: "(2+8*7) + 7 * c[0] + 182 * c[1] + 91 * s + v"
     variants:
     - Monday
     - Tuesday
     - Wednesday
     - Thursday
     - Friday
-    - Weekend
+    - Saturday
+    - Sunday
 
-  - type: horizontal-split
-    split-count: 2
+  - type: horizontal-sections
+    section-count: 2
     title: 1 Week Retro
     count: 2
 
-- type: horizontal-split
-  split-count: 2
+- type: horizontal-sections
+  section-count: 2
   title: 5 Week Retro
   count: 2
 
-- type: horizontal-split
-  split-count: 2
+- type: horizontal-sections
+  section-count: 2
   title: 13 Week Retro
   count: 2
 
 - type: simple
   title: 2023 Retro
   count: 2
+
+- type: simple
+  count: 8
