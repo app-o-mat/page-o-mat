@@ -1,7 +1,7 @@
-from datetime import datetime
 from importlib import import_module
 from fpdf import FPDF, set_global
 from pageomat.config import config_attribute, config_page_attribute
+from pageomat.pages.date_utils import format_day_of_year
 from pageomat.pages.page import page_sizes
 
 
@@ -101,13 +101,13 @@ class PdfGenerator:
                             parent_count=parent_count + [c],
                             page_start=len(result))
                     else:
-                        page = self.flatten_page(p, v, parent_variant)
-                        if include_indices:
-                            page["indices"] = {
-                                "p": len(result) + page_start,
-                                "c": parent_count + [c],
-                                "v": vIndex
-                            }
+                        indices = {
+                            "p": len(result) + page_start,
+                            "c": parent_count + [c],
+                            "v": vIndex
+                        } if include_indices else None
+                        page = self.flatten_page(p, v, parent_variant, indices)
+
                         result.append(page)
 
         return result
@@ -115,7 +115,7 @@ class PdfGenerator:
     def include_for_flatten(self, key):
         return key not in {"count", "variants", "pages"}
 
-    def flatten_page(self, page, variant, parent_variant):
+    def flatten_page(self, page, variant, parent_variant, indices=None):
         if variant is not None:
             if parent_variant is not None:
                 variant = variant.replace("$variant$", parent_variant)
@@ -123,13 +123,18 @@ class PdfGenerator:
             variant = parent_variant
 
         result = {k: page[k] for k in filter(self.include_for_flatten, page.keys())}
+        if indices is not None:
+            result["indices"] = indices
 
         year = config_page_attribute(self.config, page, "year", None)
         if year is not None:
             day_of_year = config_page_attribute(self.config, page, "day-of-year", 1)
             date_format = config_page_attribute(self.config, page, "date-format", "%y-%MM-%dd")
-            date = datetime.strptime(str(year) + "-" + str(day_of_year), "%Y-%j")
-            result["date"] = datetime.strftime(date, date_format)
+
+            vars = {"__builtins__": None}
+            if indices is not None:
+                vars.update(indices)
+            result["date"] = format_day_of_year(year, day_of_year, date_format, vars)
 
         if variant is not None:
             result["variant"] = variant
