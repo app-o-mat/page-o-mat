@@ -9,7 +9,7 @@ defaults:
     dot-size: 0.5
     color: "#aaa"
   grid-snap: 5
-  top-margin: 7
+  top-margin: 10
   title-font:
     family: Helvetica
     size: 16
@@ -21,6 +21,7 @@ defaults:
   section-title-color: "#666"
   section-date-format: "%-d %b"
   section-left-margin: 15
+  section-top-margin: 5
   line-color: "#ccc"
   line-width: 0.2
   year: 2023
@@ -31,7 +32,7 @@ defaults:
     size: 8
   footer-color: "#666"
   footer-align: Center
-  footer-offset: 2.5
+  footer-offset: 5
 
 pages:
 - type: simple
@@ -48,6 +49,7 @@ pages:
   pages:
   - type: horizontal-sections
     section-count: 13
+    section-top-margin: 0
     title: "Daily Summaries - $variant$"
     section-title: "$section-start-date$"
     section-start-day-of-year: "2 + 7 * c[0] + 28 * s + v"

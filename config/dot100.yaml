@@ -1,0 +1,27 @@
+---
+# 100 Page dot journal with page numbers
+# page-size can be A3, A4, A5, Letter, or Legal
+# Units are set to mm for A3, A4, and A5 and inches for Letter or Legal
+page-size: A5
+pdf-title: Dot Journal
+pdf-author: Lou Franco
+defaults:
+  paper:
+    # paper type can be dot, grid, or blank
+    type: dot
+    spacing: 5
+    dot-size: 0.5
+    color: "#aaa"
+  grid-snap: 5
+
+  footer: "$page$"
+  footer-font:
+    family: Helvetica
+    size: 8
+  footer-color: "#666"
+  footer-align: Center
+  footer-offset: 2.5
+
+pages:
+- type: simple
+  count: 100

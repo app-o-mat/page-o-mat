@@ -1,0 +1,32 @@
+---
+# 365 Page Daily Journal with Dates
+# page-size can be A3, A4, A5, Letter, or Legal
+# Units are set to mm for A3, A4, and A5 and inches for Letter or Legal
+page-size: A5
+pdf-title: Daily Journal
+pdf-author: Lou Franco
+defaults:
+  paper:
+    # paper type can be dot, grid, or blank
+    type: blank
+  grid-snap: 5
+
+  date-format: "%A - %-d %b"
+  title-font:
+    family: Helvetica
+    size: 16
+  title-align: Center
+  footer: "$page$"
+  footer-font:
+    family: Helvetica
+    size: 8
+  footer-color: "#666"
+  footer-align: Center
+  footer-offset: 2.5
+
+pages:
+- type: simple
+  title: "$date$"
+  count: 365
+  year: 2023
+  day-of-year: "c[0]+1"
