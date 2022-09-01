@@ -1,0 +1,14 @@
+---
+page-size: A5
+embed-fonts:
+- family: Monaco
+  fname: /System/Library/Fonts/Monaco.ttf
+  unicode: true
+defaults:
+  title-font:
+    family: Monaco
+    size: 16
+
+pages:
+- type: simple
+  title: "A title set in Monaco"

@@ -1,0 +1,7 @@
+---
+# minimal config for 2 blank pages
+page-size: A5
+
+pages:
+- type: simple
+  count: 2
