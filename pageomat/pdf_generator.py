@@ -47,12 +47,13 @@ class PdfGenerator:
 
     def embed_fonts(self, pdf):
         set_global("FPDF_CACHE_MODE", 1)
-        if "defaults" in self.config and "embed-fonts" in self.config["defaults"]:
-            fonts = self.config["defaults"]["embed-fonts"]
+        if "embed-fonts" in self.config:
+            fonts = self.config["embed-fonts"]
             for font in fonts:
                 family = font["family"]
                 fname = font["fname"]
-                pdf.add_font(family, '', fname, uni=True)
+                unicode = font["unicode"]
+                pdf.add_font(family, '', fname, uni=unicode)
 
     def render_paper(self, page, pdf):
         paper_module_name = self.module_for_paper(page)
