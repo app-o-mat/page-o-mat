@@ -29,4 +29,7 @@ pages:
   title: "$date$"
   count: 365
   year: 2023
+  # c is a list of counters based on this page block's
+  # nesting. c[0] is the current 0-based index from 0..(count-1)
+  # We add one because 1 is Jan 1, 2 is Jan 2, and so on.
   day-of-year: "c[0]+1"
