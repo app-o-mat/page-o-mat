@@ -7,6 +7,10 @@ This is a work in progress. Currently, it is intended to generate the 2023 daily
 There is a configuration file that allows some customization, but the
 page types are limited.
 
+# Documentation
+
+[Full docs](docs)
+
 # Setup
 
 There is a requirements file to install dependencies. Using `pip`, you can run
