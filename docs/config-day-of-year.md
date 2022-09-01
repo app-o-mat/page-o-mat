@@ -4,7 +4,7 @@ All `day_of_year` keys could either be an integer or a string.
 
 If it's an integer, then it is the day of the year where 1 is January 1st, 2 is January 2nd, and so on.
 
-If it's a string, then it's an expression that would calculate an integer day of year given the indices in page block.
+If it's a string, then it's an expression that would calculate an integer day of year given the current indices while generating the page.
 
 To understand the indices, consider this page block:
 
