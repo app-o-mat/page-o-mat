@@ -27,19 +27,19 @@ To understand the indices, consider this page block:
 You can think of it as defining a loop like this (pseudo-code):
 
 ```python
-p = current_page()
 for c0 in 0..outer_count:
   for v in 0..variant_count:
     for c1 in 0..inner_count:
+      p = current_page_number()
       for s in 0..section_count:
         date = calc_date(day_of_year, year, indices={p:p, c: [c0, c1], v:v, s:s})
-        make_page(date)
+        draw_page_section(date)
 ```
 
 Where `day_of_year` is the expression in your key
 
 All indices are 0-based
-- p is the current page
+- p is the current page number
 - c is a list of "count" indices (c[0] is the top level parent)
 - s is a section index
 - v is a variant index
