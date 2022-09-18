@@ -7,7 +7,7 @@ pdf-title: Dot Journal
 pdf-author: Lou Franco
 defaults:
   paper:
-    # paper type can be dot, grid, or blank
+    # paper type can be dot, grid, lined, or blank
     type: dot
     spacing: 5
     dot-size: 0.5

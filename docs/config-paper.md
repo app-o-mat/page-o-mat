@@ -4,8 +4,9 @@ The units of the numbers are either millimeters for A5, A4, and A3 paper or inch
 
 |key|Type|Description|
 |---|-------|-----------|
-|type|`Enumeration` blank \| dot \| grid|The paper template to use|
+|type|`Enumeration` blank \| dot \| grid \| lined|The paper template to use|
 |color|`hex color` (e.g. `"#333333"`)|Used for dots or grid lines|
 |dot-size|`number`|The diameter of the dot.|
-|line-width|`number`|The width of a grid line.|
+|line-width|`number`|The width of a line (for grid or lined paper).|
 |spacing|`number`|The space between dots or grid lines.|
+|heading|`number`|The space to reserve at the top of lined paper.|

@@ -19,7 +19,7 @@ defaults:
 
   # The base design of the paper
   paper:
-    # type can be blank, dot, or grid.
+    # type can be blank, dot, lined, or grid.
     type: dot
     # Used to draw the dot, which is a filled ellipse
     # Grid would use the same variables for lines
