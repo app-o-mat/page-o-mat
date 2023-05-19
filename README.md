@@ -12,17 +12,20 @@ page types are limited.
 ```mermaid
 C4Context
   Person(customerA, "Journal Designer")
-  System(SystemAA, "Page-o-Mat", "a CLI to generate Journal PDFs")
+  System(SystemAA, "Page-o-Mat", "Makes Journal PDFs")
 
-  System_Ext(SystemC, "Print Service", "A PDF printing service (e.g. LuLu).")
   Person_Ext(customerB, "Journal User")
+  System_Ext(SystemC, "Print Service", "A PDF printing service (e.g. LuLu).")
+  
 
   Rel(customerA, SystemAA, "Creates specs for")
   Rel(SystemAA, SystemC, "Generates PDFs for")
-  Rel(customerB, SystemC, "Buys physical journals from")
+  Rel(customerB, SystemC, "Buys journals from")
+
   UpdateElementStyle(SystemAA, $sizeWidth="10")
-  UpdateLayoutConfig($c4ShapeInRow="1", $c4BoundaryInRow="1")
-  UpdateRelStyle(customerA, SystemAA, $offsetX="-30")
+  UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
+  UpdateRelStyle(customerA, SystemAA, $offsetX="-40", $offsetY="40")
+  UpdateRelStyle(customerB, SystemC, $offsetX="-40", $offsetY="40")
 ```
 
 [Full docs](docs)
