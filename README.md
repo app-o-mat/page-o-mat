@@ -11,21 +11,21 @@ page types are limited.
 
 ```mermaid
 C4Context
-  Person(customerA, "Journal Designer")
-  System(SystemAA, "Page-o-Mat", "Makes Journal PDFs")
+  %% This is a Mermaid diagram for the system context
+  Person(designer, "Journal Designer")
+  System(pageomat, "Page-o-Mat", "Makes Journal PDFs")
 
-  Person_Ext(customerB, "Journal User")
-  System_Ext(SystemC, "Print Service", "A PDF printing service (e.g. LuLu).")
+  Person_Ext(journaler, "Journal User")
+  System_Ext(printservice, "Print Service", "A PDF printing service (e.g. LuLu).")
   
 
-  Rel(customerA, SystemAA, "Creates specs for")
-  Rel(SystemAA, SystemC, "Generates PDFs for")
-  Rel(customerB, SystemC, "Buys journals from")
+  Rel(designer, pageomat, "Creates specs for")
+  Rel(pageomat, printservice, "Generates PDFs for")
+  Rel(journaler, printservice, "Buys journals from")
 
-  UpdateElementStyle(SystemAA, $sizeWidth="10")
   UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
-  UpdateRelStyle(customerA, SystemAA, $offsetX="-40", $offsetY="40")
-  UpdateRelStyle(customerB, SystemC, $offsetX="-40", $offsetY="40")
+  UpdateRelStyle(designer, pageomat, $offsetX="-40", $offsetY="40")
+  UpdateRelStyle(journaler, printservice, $offsetX="-40", $offsetY="40")
 ```
 
 [Full docs](docs)
