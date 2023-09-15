@@ -19,6 +19,8 @@ class LinedPaper(Paper):
         header_space = self.paper_attribute(paper, "heading", 0)
         header_space = self.paper_attribute(paper, "header-space", header_space)
 
+        footer_space = self.paper_attribute(paper, "footer-space", 0)
+
         spacing = self.paper_attribute(paper, "spacing", 5)
 
         center_y = height / 2
@@ -30,5 +32,5 @@ class LinedPaper(Paper):
 
         for y in range(-y_lines, y_lines + 1):
             y_pos = center_y + spacing * y
-            if y_pos >= heading:
+            if y_pos >= header_space and y_pos <= height - footer_space:
                 pdf.line(0, y_pos, width, y_pos)
