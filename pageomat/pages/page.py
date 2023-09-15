@@ -62,13 +62,18 @@ class TemplatePage(Page):
         align = config_page_attribute(config, page, "title-align", "Left")
         pdf.cell(0, txt=title, align=align[0].capitalize())
 
+    def default_footer_offset(self, units):
+        if units == "mm":
+            return 2.5
+        return 0.25
+
     def render_footer(self, config, page, pdf):
         footer = config_page_attribute(config, page, "footer", None)
         if footer is None:
             return
 
         footer = footer.replace("$page$", str(pdf.page_no()))
-        footer_offset = config_page_attribute(config, page, "footer-offset", 2.5)
+        footer_offset = config_page_attribute(config, page, "footer-offset", self.default_footer_offset(page_sizes[config["page-size"]][2]))
         pdf.set_y(-footer_offset)
 
         font = config_page_attribute(config, page, "footer-font", {"family": "Helvetica", "size": 16})
