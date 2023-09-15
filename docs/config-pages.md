@@ -55,6 +55,12 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 |title-font|`object`|Define a font to use for page titles. See [font keys](config-font.md)|
 |title-color|`hex color` (e.g. `"#cc00dd"`)|A color to use for the title|
 |title-align|`Enumeration` Left \| Center \| Right|Used to align the title horizontally|
+|show-title|`Bool`|Whether or not to show the title on this page. Can be a string expression of the indices that resolves to a boolean|
+|subtitle|`string`|A string to use as the subtitle. Use `$variant$` if you want the current page variant in the string or `$date$` if you want the date|
+|subtitle-font|`object`|Define a font to use for page subtitles. See [font keys](config-font.md)|
+|subtitle-color|`hex color` (e.g. `"#cc00dd"`)|A color to use for the subtitle|
+|subtitle-align|`Enumeration` Left \| Center \| Right|Used to align the subtitle horizontally|
+|show-subtitle|`Bool`|Whether or not to show the subtitle on this page. Can be a string expression of the indices that resolves to a boolean|
 |footer|`string`|A string to use as a page footer. Use `$page$` to get the page number|
 |footer-font|`object`|See [font](config-font.md)|
 |footer-color|`hex color` (e.g. `"#333333"`)|Footer color. A 3 or 6 hex digit RGB color|

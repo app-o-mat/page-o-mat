@@ -116,6 +116,16 @@ class PdfGenerator:
     def include_for_flatten(self, key):
         return key not in {"count", "variants", "pages"}
 
+    def eval_value(self, page, indices, key, default_value=None):
+        value = config_page_attribute(self.config, page, key, default_value=default_value)
+        if type(value) is str:
+            vars = {"__builtins__": None}
+            if indices is not None:
+                vars.update(indices)
+            value = eval(value, vars)
+
+        return value
+
     def flatten_page(self, page, variant, parent_variant, indices=None):
         if variant is not None:
             if parent_variant is not None:
@@ -139,6 +149,13 @@ class PdfGenerator:
 
         if variant is not None:
             result["variant"] = variant
+
+        show_title = self.eval_value(page, indices, "show-title")
+        if show_title is not None:
+            result["show-title"] = show_title
+        show_subtitle = self.eval_value(page, indices, "show-subtitle")
+        if show_subtitle is not None:
+            result["show-subtitle"] = show_subtitle
 
         result = {k: self.substitute_variables(result[k], result) for k in result.keys()}
 
