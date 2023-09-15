@@ -55,6 +55,7 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 |title-font|`object`|Define a font to use for page titles. See [font keys](config-font.md)|
 |title-color|`hex color` (e.g. `"#cc00dd"`)|A color to use for the title|
 |title-align|`Enumeration` Left \| Center \| Right|Used to align the title horizontally|
+|show-title|`Bool`|Whether or not to show the title on this page. Can be a string expression of the indices that resolves to a boolean|
 |footer|`string`|A string to use as a page footer. Use `$page$` to get the page number|
 |footer-font|`object`|See [font](config-font.md)|
 |footer-color|`hex color` (e.g. `"#333333"`)|Footer color. A 3 or 6 hex digit RGB color|

@@ -53,6 +53,10 @@ class TemplatePage(Page):
         if "title" not in page:
             return
 
+        show_title = config_page_attribute(config, page, "show-title", True)
+        if not show_title:
+            return
+
         title = page["title"]
 
         font = config_page_attribute(config, page, "title-font", {"family": "Helvetica", "size": 16})
