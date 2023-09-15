@@ -47,6 +47,7 @@ class TemplatePage(Page):
     def render_into(self, config, page, pdf):
         super().render_into(pdf)
         self.render_title(config, page, pdf)
+        self.render_subtitle(config, page, pdf)
         self.render_footer(config, page, pdf)
 
     def render_title(self, config, page, pdf):
@@ -64,7 +65,24 @@ class TemplatePage(Page):
         color = config_page_attribute(config, page, "title-color", "#000")
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
         align = config_page_attribute(config, page, "title-align", "Left")
-        pdf.cell(0, txt=title, align=align[0].capitalize())
+        pdf.cell(0, ln=0, txt=title, align=align[0].capitalize())
+
+    def render_subtitle(self, config, page, pdf):
+        if "subtitle" not in page:
+            return
+        show_title = config_page_attribute(config, page, "show-subtitle", True)
+        if not show_title:
+            return
+
+        pdf.ln(0.4)
+        subtitle = page["subtitle"]
+
+        font = config_page_attribute(config, page, "subtitle-font", {"family": "Helvetica", "size": 12})
+        pdf.set_font(font["family"], size=font["size"])
+        color = config_page_attribute(config, page, "subtitle-color", "#000")
+        pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
+        align = config_page_attribute(config, page, "subtitle-align", "Left")
+        pdf.cell(0, txt=subtitle, align=align[0].capitalize())
 
     def default_footer_offset(self, units):
         if units == "mm":

@@ -153,6 +153,9 @@ class PdfGenerator:
         show_title = self.eval_value(page, indices, "show-title")
         if show_title is not None:
             result["show-title"] = show_title
+        show_subtitle = self.eval_value(page, indices, "show-subtitle")
+        if show_subtitle is not None:
+            result["show-subtitle"] = show_subtitle
 
         result = {k: self.substitute_variables(result[k], result) for k in result.keys()}
 
