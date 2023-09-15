@@ -14,7 +14,10 @@ class LinedPaper(Paper):
         width = self.page_width(config)
         height = self.page_height(config)
         line_width = self.paper_attribute(paper, "line-width", 0.25)
-        heading = self.paper_attribute(paper, "heading", 0)
+
+        # Support both names "heading" (old) and "header-space" (new)
+        header_space = self.paper_attribute(paper, "heading", 0)
+        header_space = self.paper_attribute(paper, "header-space", header_space)
 
         spacing = self.paper_attribute(paper, "spacing", 5)
 

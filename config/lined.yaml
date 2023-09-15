@@ -11,7 +11,7 @@ defaults:
     type: lined
     spacing: 5
     line-width: 0.25
-    heading: 10
+    header-space: 10
     color: "#aaa"
   grid-snap: 5
 
