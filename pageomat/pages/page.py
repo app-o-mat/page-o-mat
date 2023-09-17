@@ -1,7 +1,9 @@
+import os
 from math import floor
+import uuid
 from pageomat.config import config_page_attribute
 from pageomat.pages.color_utils import hex2red, hex2green, hex2blue
-
+import qrcode
 
 page_sizes = {
     "A3": (297, 420, "mm"),
@@ -121,6 +123,17 @@ class TemplatePage(Page):
         pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
         pdf.rect(pos["x"], pos["y"], size["w"], size["h"], style=style)
 
+    def render_line(self, config, page, pdf, shape):
+        start = shape["start"]
+        end = shape["end"]
+
+        color = shape["color"] if "color" in shape else "#000"
+        pdf.set_draw_color(hex2red(color), hex2green(color), hex2blue(color))
+
+        line_width = shape["line-width"] if "line-width" in shape else 0.25
+        pdf.set_line_width(line_width)
+        pdf.line(start["x"], start["y"], end["x"], end["y"])
+
     def render_circle(self, config, page, pdf, shape):
         center = shape["center"]
         radius = shape["radius"]
@@ -166,6 +179,17 @@ class TemplatePage(Page):
         pdf.set_font(font["family"], size=font["size"])
         pdf.multi_cell(w=size["w"], h=size["h"], txt=text, align=align[0].capitalize())
 
+    def render_qr(self, config, page, pdf, shape):
+        pos = shape["pos"]
+        size = shape["size"]
+        text = shape["text"]
+        qr_image = qrcode.make(text)
+        qr_filename = ".qr-tmp-" + str(uuid.uuid4()) + ".png"
+        qr_image.save(qr_filename)
+        pdf.image(qr_filename, pos["x"], pos["y"], size["w"], size["h"])
+        if os.path.exists(qr_filename):
+            os.remove(qr_filename)
+
     def render_drawing(self, config, page, pdf):
         if "drawing" not in page:
             return
@@ -174,12 +198,16 @@ class TemplatePage(Page):
         for shape in drawing:
             if shape["type"] == "rect":
                 self.render_rect(config, page, pdf, shape)
+            elif shape["type"] == "line":
+                self.render_line(config, page, pdf, shape)
             elif shape["type"] == "circle":
                 self.render_circle(config, page, pdf, shape)
             elif shape["type"] == "ellipse":
                 self.render_ellipse(config, page, pdf, shape)
             elif shape["type"] == "text":
                 self.render_text(config, page, pdf, shape)
+            elif shape["type"] == "qr":
+                self.render_qr(config, page, pdf, shape)
             else:
                 raise Exception("Unknown shape type: " + shape["type"])
             pdf.set_alpha(1.0)
