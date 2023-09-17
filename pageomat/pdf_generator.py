@@ -1,5 +1,6 @@
 from importlib import import_module
-from fpdf import FPDF, set_global
+from fpdf import set_global
+from pageomat.pageOMatPdf import PageOMatPdf
 from pageomat.config import config_attribute, config_page_attribute
 from pageomat.pages.date_utils import format_day_of_year
 from pageomat.pages.page import page_sizes
@@ -28,7 +29,7 @@ class PdfGenerator:
         return page_sizes[self.page_size()][2]
 
     def make_pdf(self, filename):
-        pdf = FPDF(format=self.page_size(), unit=self.page_unit())
+        pdf = PageOMatPdf(format=self.page_size(), unit=self.page_unit())
         pdf.set_auto_page_break(False)
         pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
         pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
