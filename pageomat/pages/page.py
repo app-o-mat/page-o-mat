@@ -46,6 +46,7 @@ class TemplatePage(Page):
     '''Base class for templates'''
     def render_into(self, config, page, pdf):
         super().render_into(pdf)
+        self.render_drawing(config, page, pdf)
         self.render_title(config, page, pdf)
         self.render_subtitle(config, page, pdf)
         self.render_footer(config, page, pdf)
@@ -104,3 +105,81 @@ class TemplatePage(Page):
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
         align = config_page_attribute(config, page, "footer-align", "Left")
         pdf.cell(0, txt=footer, align=align[0].capitalize())
+
+    def render_rect(self, config, page, pdf, shape):
+        pos = shape["pos"]
+        size = shape["size"]
+        fill = shape["fill"] if "fill" in shape else None
+        stroke = shape["stroke"] if "stroke" in shape else None
+        style = ""
+        if stroke is not None:
+            pdf.set_draw_color(hex2red(stroke), hex2green(stroke), hex2blue(stroke))
+            style += "D"
+        if fill is not None:
+            pdf.set_fill_color(hex2red(fill), hex2green(fill), hex2blue(fill))
+            style += "F"
+        pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
+        pdf.rect(pos["x"], pos["y"], size["w"], size["h"], style=style)
+
+    def render_circle(self, config, page, pdf, shape):
+        center = shape["center"]
+        radius = shape["radius"]
+        fill = shape["fill"] if "fill" in shape else None
+        stroke = shape["stroke"] if "stroke" in shape else None
+        style = ""
+        if stroke is not None:
+            pdf.set_draw_color(hex2red(stroke), hex2green(stroke), hex2blue(stroke))
+            style += "D"
+        if fill is not None:
+            pdf.set_fill_color(hex2red(fill), hex2green(fill), hex2blue(fill))
+            style += "F"
+        pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
+        pdf.ellipse(center["x"] - radius, center["y"] - radius, radius * 2, radius * 2, style=style)
+
+    def render_ellipse(self, config, page, pdf, shape):
+        pos = shape["pos"]
+        size = shape["size"]
+        fill = shape["fill"] if "fill" in shape else None
+        stroke = shape["stroke"] if "stroke" in shape else None
+        style = ""
+        if stroke is not None:
+            pdf.set_draw_color(hex2red(stroke), hex2green(stroke), hex2blue(stroke))
+            style += "D"
+        if fill is not None:
+            pdf.set_fill_color(hex2red(fill), hex2green(fill), hex2blue(fill))
+            style += "F"
+        pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
+        pdf.ellipse(pos["x"], pos["y"], size["w"], size["h"], style=style)
+
+    def render_text(self, config, page, pdf, shape):
+        pos = shape["pos"]
+        size = shape["size"]
+        text = shape["text"]
+        align = shape["align"] if "align" in shape else "Left"
+
+        color = shape["color"] if "color" in shape else None
+        if color is not None:
+            pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
+        pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
+        pdf.set_xy(pos["x"], pos["y"])
+        font = shape["font"] if "font" in shape else {"family": "Helvetica", "size": 16}
+        pdf.set_font(font["family"], size=font["size"])
+        pdf.multi_cell(w=size["w"], h=size["h"], txt=text, align=align[0].capitalize())
+
+    def render_drawing(self, config, page, pdf):
+        if "drawing" not in page:
+            return
+
+        drawing = page["drawing"]
+        for shape in drawing:
+            if shape["type"] == "rect":
+                self.render_rect(config, page, pdf, shape)
+            elif shape["type"] == "circle":
+                self.render_circle(config, page, pdf, shape)
+            elif shape["type"] == "ellipse":
+                self.render_ellipse(config, page, pdf, shape)
+            elif shape["type"] == "text":
+                self.render_text(config, page, pdf, shape)
+            else:
+                raise Exception("Unknown shape type: " + shape["type"])
+            pdf.set_alpha(1.0)
