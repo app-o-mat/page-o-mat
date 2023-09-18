@@ -22,11 +22,21 @@ class Page:
 
     def page_width(self, config):
         page_size = config["page-size"]
+        if type(page_size) is not str:
+            return page_size["w"]
         return page_sizes[page_size][0]
 
     def page_height(self, config):
         page_size = config["page-size"]
+        if type(page_size) is not str:
+            return page_size["h"]
         return page_sizes[page_size][1]
+
+    def page_unit(self, config):
+        page_size = config["page-size"]
+        if type(page_size) is not str:
+            return page_size["unit"]
+        return page_sizes[page_size][2]
 
     def grid_snap_value(self, grid_snap, value):
         if grid_snap > 0:
@@ -88,8 +98,8 @@ class TemplatePage(Page):
         align = config_page_attribute(config, page, "subtitle-align", "Left")
         pdf.cell(0, txt=subtitle, align=align[0].capitalize())
 
-    def default_footer_offset(self, units):
-        if units == "mm":
+    def default_footer_offset(self, config):
+        if self.page_unit(config) == "mm":
             return 2.5
         return 0.25
 
@@ -99,7 +109,7 @@ class TemplatePage(Page):
             return
 
         footer = footer.replace("$page$", str(pdf.page_no()))
-        footer_offset = config_page_attribute(config, page, "footer-offset", self.default_footer_offset(page_sizes[config["page-size"]][2]))
+        footer_offset = config_page_attribute(config, page, "footer-offset", self.default_footer_offset(config))
         pdf.set_y(-footer_offset)
 
         font = config_page_attribute(config, page, "footer-font", {"family": "Helvetica", "size": 16})

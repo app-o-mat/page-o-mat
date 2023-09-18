@@ -20,13 +20,19 @@ class PdfGenerator:
         '''Returns a flattened array of the pages'''
         return self.pages_from_subpages(self.config["pages"], include_indices=include_indices)
 
-    def page_size(self):
+    def page_size_name(self):
         if "page-size" in self.config:
-            return self.config["page-size"]
+            page_size = self.config["page-size"]
+            if type(page_size) is str:
+                return page_size
+            else:
+                return "Custom"
         return "A5"
 
     def page_size_tuple(self):
-        page_size = self.page_size()
+        page_size = self.page_size_name()
+        if page_size == "Custom":
+            return (self.config["page-size"]["w"], self.config["page-size"]["h"])
         return (page_sizes[page_size][0], page_sizes[page_size][1])
 
     def page_orientation(self):
@@ -35,7 +41,10 @@ class PdfGenerator:
         return "P"
 
     def page_unit(self):
-        return page_sizes[self.page_size()][2]
+        page_size = self.page_size_name()
+        if page_size == "Custom":
+            return self.config["page-size"]["unit"]
+        return page_sizes[self.page_size_name()][2]
 
     def make_pdf(self, filename):
         pdf = PageOMatPdf(format=self.page_size_tuple(), unit=self.page_unit(), orientation=self.page_orientation())
