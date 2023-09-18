@@ -25,11 +25,20 @@ class PdfGenerator:
             return self.config["page-size"]
         return "A5"
 
+    def page_size_tuple(self):
+        page_size = self.page_size()
+        return (page_sizes[page_size][0], page_sizes[page_size][1])
+
+    def page_orientation(self):
+        if "page-orientation" in self.config:
+            return self.config["page-orientation"][0].capitalize()
+        return "P"
+
     def page_unit(self):
         return page_sizes[self.page_size()][2]
 
     def make_pdf(self, filename):
-        pdf = PageOMatPdf(format=self.page_size(), unit=self.page_unit())
+        pdf = PageOMatPdf(format=self.page_size_tuple(), unit=self.page_unit(), orientation=self.page_orientation())
         pdf.set_auto_page_break(False)
         pdf.set_author(config_attribute(self.config, "pdf-author", "Page-o-Mat"))
         pdf.set_title(config_attribute(self.config, "pdf-title", "Page-o-Mat Journal"))
