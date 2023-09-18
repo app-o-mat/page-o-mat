@@ -39,6 +39,7 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 
 |key|Type|Description|
 |---|-------|-----------|
+|drawing|`list of objects`|A list of drawing objects. See [drawing keys](config-drawing.md)|
 |paper|`object`|The type of paper. Use [paper sub-keys](config-paper.md).|
 |grid-snap|`number`|Used when drawing lines on top of the paper. If you match your paper, then lines will be on the same grid as the paper.|
 |line-color|`hex color` (e.g. `"#333333"`)|Color for drawing lines|

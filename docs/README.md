@@ -24,7 +24,8 @@ The Page-o-Mat configuration file is a YAML formatted file with the following to
 
 |key|Type|Description|
 |---|-------|-----------|
-|page-size|`Enumeration` A5 \| A4 \| A3 \| Letter \| Legal|The size of the page. This also sets the page units to either millimeters (For A sizes) or inches (For Legal or Letter)|
+|page-size|`Enumeration` A5 \| A4 \| A3 \| Letter \| Legal \| Tabloid or `object` `{w: 8.5, h: 11, unit: "in"}`|The size of the page. This also sets the page units to either millimeters (For A sizes) or inches (For Legal or Letter). For custom sizes, the width should always be less than the height. Use `page-orientation` to rotate it.|
+|page-orientation|`Enumeration` Portrait \| Landscape|The orientation of the page.|
 |pdf-title|`string`|Used in PDF meta-data|
 |pdf-author|`string`|Used in PDF meta-data|
 |defaults|`list of objects`|Defaults for pages. See [pages](config-pages.md).
