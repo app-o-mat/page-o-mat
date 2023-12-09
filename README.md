@@ -51,7 +51,7 @@ options:
   --config CONFIG  name of the journal YAML config file
   --output OUTPUT  name of the pdf file
 
-$ python pageomat/main.py --config config/2023-recurring-journal.yaml --output 2023.pdf
+$ python pageomat/main.py --config config/2024-recurring-journal.yaml --output 2024.pdf
 ```
 
 Sample configuration files can be found in the `config` folder.
