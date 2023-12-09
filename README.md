@@ -17,7 +17,7 @@ C4Context
 
   Person_Ext(journaler, "Journal User")
   System_Ext(printservice, "Print Service", "A PDF printing service (e.g. LuLu).")
-  
+
 
   Rel(designer, pageomat, "Creates specs for")
   Rel(pageomat, printservice, "Generates PDFs for")
@@ -35,7 +35,7 @@ C4Context
 There is a requirements file to install dependencies. Using `pip`, you can run
 
 ```bash
-$ pip -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 # Usage
