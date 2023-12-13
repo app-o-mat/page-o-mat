@@ -8,8 +8,7 @@ There is a configuration file that allows some customization, but the
 page types are limited.
 
 # Documentation
-This is a system context diagram for the Page-o-Mat system. Look at C4Model for more information.
-The diagram uses mermaid.
+This is a system context diagram written in mermaid.
 
 ```mermaid
 C4Context
