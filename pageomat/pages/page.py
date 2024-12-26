@@ -1,7 +1,7 @@
 import os
 from math import floor
 import uuid
-from pageomat.config import config_page_attribute
+from pageomat.config import config_page_attribute, eval_value
 from pageomat.pages.color_utils import hex2red, hex2green, hex2blue
 import qrcode
 
@@ -133,6 +133,14 @@ class TemplatePage(Page):
             style += "F"
         pdf.set_alpha(shape["alpha"] if "alpha" in shape else 1.0)
         pdf.rect(pos["x"], pos["y"], size["w"], size["h"], style=style)
+
+        page_link = shape["page-link"] if "page-link" in shape else None
+        if page_link is not None:
+            page_number = eval_value(page_link, page["indices"])
+
+            link = pdf.add_link()
+            pdf.set_link(link, page=page_number)
+            pdf.link(pos["x"], pos["y"], size["w"], size["h"], link)
 
     def render_line(self, config, page, pdf, shape):
         start = shape["start"]

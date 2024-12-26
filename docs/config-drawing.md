@@ -38,6 +38,7 @@ Keys for `rect`
 |stroke|`hex color` (e.g. `"#333333"`)|Color for the outline of the rectangle|
 |fill|`hex color` (e.g. `"#333333"`)|Color for the inside of the rectangle|
 |alpha|`number`|Opacity of the rectangle. 0 is transparent, 1 is opaque.|
+|page-link|`number`|The page number to jump to when the rectangle is clicked.|
 
 Keys for `circle`
 

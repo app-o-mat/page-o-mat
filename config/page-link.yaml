@@ -1,0 +1,13 @@
+---
+# Link each page to the next
+page-size: A5
+
+pages:
+- type: simple
+  count: 20
+  drawing:
+    - type: rect
+      pos: {x: 1.25, y: 1}
+      size: {w: 6.25, h: 10}
+      fill: "#aaa"
+      page-link: "p+2"
