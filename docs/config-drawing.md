@@ -67,6 +67,7 @@ Keys for `line`
 |end|`object`|The position of the end of the line. Uses an `x` and `y` key. E.g. `{x: 10, y: 10}`|
 |color|`hex color` (e.g. `"#333333"`)|Color for the line|
 |alpha|`number`|Opacity of the line. 0 is transparent, 1 is opaque.|
+|line-width|`number`|The width of the line.|
 
 Keys for `text`
 
