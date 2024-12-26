@@ -49,7 +49,7 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 
 The units of the page are either millimeters (for A5, A4, or A3) or inches (for Letter or Legal)
 
-|key|Example|Description|
+|key|Type|Description|
 |---|-------|-----------|
 |top-margin|`number`|The margin to reserve at the top of the page (where titles start)|
 |title|`string`|A string to use as the title. Use `$variant$` if you want the current page variant in the string or `$date$` if you want the date|
