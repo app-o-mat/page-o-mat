@@ -1,7 +1,7 @@
 import os
 from math import floor
 import uuid
-from pageomat.config import config_page_attribute, eval_value
+from pageomat.config import config_attribute, config_page_attribute, eval_value
 from pageomat.pages.color_utils import hex2red, hex2green, hex2blue
 import qrcode
 
@@ -22,15 +22,17 @@ class Page:
 
     def page_width(self, config):
         page_size = config["page-size"]
+        isPortrait = config_attribute(config, "page-orientation", "Portrait") == "Portrait"
         if type(page_size) is not str:
             return page_size["w"]
-        return page_sizes[page_size][0]
+        return page_sizes[page_size][0 if isPortrait else 1]
 
     def page_height(self, config):
         page_size = config["page-size"]
+        isPortrait = config_attribute(config, "page-orientation", "Portrait") == "Portrait"
         if type(page_size) is not str:
             return page_size["h"]
-        return page_sizes[page_size][1]
+        return page_sizes[page_size][1 if isPortrait else 0]
 
     def page_unit(self, config):
         page_size = config["page-size"]
