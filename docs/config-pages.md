@@ -85,3 +85,6 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 |section-date-format|`string` in date format form|e.g. `"%-d %b"`. To format dates in section titles. See [strftime docs](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior)|
 |section-start-day-of-year|`Int` or `string`|Day of year that a section begins. See [day-of-year](config-day-of-year.md)|
 |section-end-day-of-year|`Int` or `string`|Day of year that a section ends. See [day-of-year](config-day-of-year.md)|
+|section-start-year|`Int` or `string`|Year to use in any date math -- see [day-of-year](config-day-of-year.md) keys|
+|section-end-year|`Int` or `string`|Year to use in any date math -- see [day-of-year](config-day-of-year.md) keys|
+|section-page-link|`number`|The page number to link the section title to in the PDF. This is 1-based. Can use a string that evaluates to a number using indices. NOTE: All indices are 0-based, including page number (`p`), so you might need to add one.|

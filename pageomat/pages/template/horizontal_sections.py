@@ -1,3 +1,4 @@
+from datetime import datetime
 from math import floor
 from pageomat.config import config_page_attribute
 from pageomat.pages.color_utils import hex2blue, hex2green, hex2red
@@ -28,6 +29,7 @@ class HorizontalSectionsTemplate(TemplatePage):
         spacing = self.grid_snap_value(grid_snap, height / section_count)
 
         section_title = config_page_attribute(config, page, "section-title", None)
+        section_page_link = config_page_attribute(config, page, "section-page-link", None)
 
         section_font = config_page_attribute(config, page, "section-title-font", {"family": "Helvetica", "size": 10})
         pdf.set_font(section_font["family"], size=section_font["size"])
@@ -39,22 +41,38 @@ class HorizontalSectionsTemplate(TemplatePage):
         section_date_format = config_page_attribute(config, page, "section-date-format", "%y-%MM-%dd")
         section_left_margin = config_page_attribute(config, page, "section-left-margin", 15)
         section_top_margin = config_page_attribute(config, page, "section-top-margin", 0)
-        year = config_page_attribute(config, page, "year", 2023)
+        year = config_page_attribute(config, page, "year", datetime.today().year)
+        start_year = config_page_attribute(config, page, "section-start-year", year)
+        end_year = config_page_attribute(config, page, "section-end-year", start_year)
 
         def write_section_title():
             nonlocal section_start_day_of_year
             nonlocal section_end_day_of_year
             nonlocal section
+            nonlocal section_page_link
             title = section_title
-            if section_title is not None:
+            if type(section_title) is list:
+                title = section_title[section % len(section_title)]
+
+            if title is not None:
                 vars = {"__builtins__": None, "s": section}
                 vars.update(page["indices"])
                 if section_start_day_of_year is not None:
-                    title = date_replace(title, "section-start-date", year, section_start_day_of_year, section_date_format, vars)
+                    title = date_replace(title, "section-start-date", start_year, section_start_day_of_year, section_date_format, vars)
                 if section_end_day_of_year is not None:
-                    title = date_replace(title, "section-end-date", year, section_end_day_of_year, section_date_format, vars)
+                    title = date_replace(title, "section-end-date", end_year, section_end_day_of_year, section_date_format, vars)
 
-                pdf.text(section_left_margin, yPos - spacing + grid_snap + section_top_margin, title)
+                link = None
+                if section_page_link is not None:
+                    page_number = section_page_link
+                    if type(section_page_link) is str:
+                        page_number = floor(eval(section_page_link, vars))
+
+                    link = pdf.add_link()
+                    pdf.set_link(link, page=page_number)
+
+                pdf.set_xy(section_left_margin, yPos - spacing + grid_snap + section_top_margin)
+                pdf.cell(w=0, txt=title, link=link)
 
         if section_count % 2 == 0:
             # If we have an even number of sections, then the
