@@ -119,7 +119,7 @@ class PdfGenerator:
                             parent_variant=v if v is not None else parent_variant,
                             include_indices=include_indices,
                             parent_count=parent_count + [c],
-                            page_start=len(result))
+                            page_start=len(result) + page_start)
                     else:
                         indices = {
                             "p": len(result) + page_start,
