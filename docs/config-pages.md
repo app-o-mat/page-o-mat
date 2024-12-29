@@ -32,6 +32,10 @@ The first page will have the "Default Title", and the second page will have the 
 |year|`Int`|Year to use in any date math -- see [day-of-year](config-day-of-year.md) keys|
 |date-format|`string` in date format form|e.g. `"%-d %b"`. To format dates in page titles. See [strftime docs](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior)|
 |day-of-year|`Int` or `string`|Used to set `$date$` that can be used in the title. See [day-of-year](config-day-of-year.md)|
+|start-year|`Int`|Year to use in any date math for `$start-date$` -- see [day-of-year](config-day-of-year.md) keys|
+|start-day-of-year|`Int` or `string`|Used to set `$start-date$` that can be used in the title. See [day-of-year](config-day-of-year.md)|
+|end-year|`Int`|Year to use in any date math for `$end-date$` -- see [day-of-year](config-day-of-year.md) keys|
+|end-day-of-year|`Int` or `string`|Used to set `$end-date$` that can be used in the title. See [day-of-year](config-day-of-year.md)|
 
 ### Drawing keys
 

@@ -1,7 +1,7 @@
 from importlib import import_module
 from fpdf import set_global
 from pageomat.pageOMatPdf import PageOMatPdf
-from pageomat.config import config_attribute, config_page_attribute, eval_value_with_key
+from pageomat.config import config_attribute, config_page_attribute, eval_value, eval_value_with_key
 from pageomat.pages.date_utils import format_day_of_year
 from pageomat.pages.page import page_sizes
 
@@ -147,14 +147,27 @@ class PdfGenerator:
             result["indices"] = indices
 
         year = config_page_attribute(self.config, page, "year", None)
+        start_year = config_page_attribute(self.config, page, "start-year", year)
+        end_year = config_page_attribute(self.config, page, "end-year", start_year)
         if year is not None:
             day_of_year = config_page_attribute(self.config, page, "day-of-year", 1)
+            start_day_of_year = config_page_attribute(self.config, page, "start-day-of-year", day_of_year)
+            end_day_of_year = config_page_attribute(self.config, page, "end-day-of-year", start_day_of_year)
             date_format = config_page_attribute(self.config, page, "date-format", "%y-%MM-%dd")
 
             vars = {"__builtins__": None}
             if indices is not None:
                 vars.update(indices)
             result["date"] = format_day_of_year(year, day_of_year, date_format, vars)
+            result["start-date"] = format_day_of_year(start_year, start_day_of_year, date_format, vars)
+            result["end-date"] = format_day_of_year(end_year, end_day_of_year, date_format, vars)
+
+        page_link = config_page_attribute(self.config, page, "page-link", None)
+        if page_link is not None:
+            vars = {"__builtins__": None}
+            if indices is not None:
+                vars.update(indices)
+            result["page-link"] = eval_value(page_link, indices)
 
         if variant is not None:
             result["variant"] = variant
@@ -179,5 +192,11 @@ class PdfGenerator:
 
         if "date" in page:
             value = value.replace("$date$", page["date"])
+
+        if "start-date" in page:
+            value = value.replace("$start-date$", page["start-date"])
+
+        if "end-date" in page:
+            value = value.replace("$end-date$", page["end-date"])
 
         return value
