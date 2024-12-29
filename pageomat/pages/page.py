@@ -75,13 +75,20 @@ class TemplatePage(Page):
             return
 
         title = page["title"]
+        page_link = page["page-link"] if "page-link" in page else None
 
         font = config_page_attribute(config, page, "title-font", {"family": "Helvetica", "size": 16})
         pdf.set_font(font["family"], size=font["size"])
         color = config_page_attribute(config, page, "title-color", "#000")
         pdf.set_text_color(hex2red(color), hex2green(color), hex2blue(color))
         align = config_page_attribute(config, page, "title-align", "Left")
-        pdf.cell(0, ln=0, txt=title, align=align[0].capitalize())
+
+        link = None
+        if page_link is not None:
+            link = pdf.add_link()
+            pdf.set_link(link, page=page_link)
+
+        pdf.cell(0, ln=0, txt=title, align=align[0].capitalize(), link=link)
 
     def render_subtitle(self, config, page, pdf):
         if "subtitle" not in page:

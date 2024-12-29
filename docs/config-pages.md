@@ -53,6 +53,7 @@ The units of the page are either millimeters (for A5, A4, or A3) or inches (for 
 |---|-------|-----------|
 |top-margin|`number`|The margin to reserve at the top of the page (where titles start)|
 |title|`string`|A string to use as the title. Use `$variant$` if you want the current page variant in the string or `$date$` if you want the date|
+|page-link|`number`|The page number to link the title to in the PDF. This is 1-based. Can use a string that evaluates to a number using indices. NOTE: All indices are 0-based, including page number (`p`), so you might need to add one.|
 |title-font|`object`|Define a font to use for page titles. See [font keys](config-font.md)|
 |title-color|`hex color` (e.g. `"#cc00dd"`)|A color to use for the title|
 |title-align|`Enumeration` Left \| Center \| Right|Used to align the title horizontally|
