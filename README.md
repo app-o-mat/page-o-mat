@@ -1,11 +1,12 @@
 # Page-o-Mat Journal Generator
 
-Generates a journal PDF from a specification. Suitable for printing into a book.
+Generates a journal/planner (PDF) from a specification. Suitable for printing into a book or using on a tablet.
 
-This is a work in progress. Currently, it is intended to generate the 2023 daily journal described in https://loufranco.com/blog/recurring-journals.
+It was created to generate the 2023 daily journal described in https://loufranco.com/blog/recurring-journals.
 
-There is a configuration file that allows some customization, but the
-page types are limited.
+In 2024 ([for my 2025 journal](https://loufranco.com/blog/my-2025-journal-pdf-for-supernote-a5)), I added support for internal links so I could make a electronic version of the journal for use on a Supernote Manta A5 sized e-ink tablet.
+
+Configuration files for all of my journals are in the `config` folder.
 
 # Documentation
 This is a C4 System Context diagram for the Page-o-Mat system. Blue boxes are part of the system and gray boxes are shown for context.
