@@ -2,7 +2,7 @@
 """
 import sys
 import yaml
-from cli_arg_parser import CliArgParser
+from pageomat.cli_arg_parser import CliArgParser
 from pageomat.pdf_generator import PdfGenerator
 
 

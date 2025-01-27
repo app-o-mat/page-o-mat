@@ -43,7 +43,7 @@ $ pip install -r requirements.txt
 # Usage
 
 ```bash
-$ python pageomat/main.py -h
+$ python -m pageomat.main -h
 usage: main.py [-h] --config CONFIG --output OUTPUT
 
 Runs Page-o-Mat
@@ -53,7 +53,7 @@ options:
   --config CONFIG  name of the journal YAML config file
   --output OUTPUT  name of the pdf file
 
-$ python pageomat/main.py --config config/2024-recurring-journal.yaml --output 2024.pdf
+$ python -m pageomat.main --config config/2025-journal.yaml --output 2025.pdf
 ```
 
 Sample configuration files can be found in the `config` folder.
