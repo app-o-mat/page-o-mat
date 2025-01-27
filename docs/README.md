@@ -14,7 +14,7 @@ date format you wish.
    `pip install -r requirements.txt`
 1. Run Page-o-Mat with a config
 
-   `python pageomat/main.py --config config/daily.yaml --output daily.pdf`
+   `python -m pageomat.main --config config/daily.yaml --output daily.pdf`
 
 1. daily.pdf is a sample 2023 Daily Journal PDF. It has 365 pages, each with the date on top.
 
@@ -67,3 +67,13 @@ pages:
 ```
 
 There are more sample configurations in the config folder.
+
+## Running Tests
+
+If you make local changes and want to ensure that they do not break existing
+behavior, you can run the Page-o-mat tests by running the following:
+
+   `python -m unittest discover -s tests -p 'test_*.py'`
+
+Alternatively, if you have `pytest` installed, you can run the tests by simply
+running `pytest`.
