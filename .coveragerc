@@ -1,0 +1,8 @@
+[run]
+source = pageomat
+omit =
+    */tests/*
+    */__pycache__/*
+    */venv/*
+    setup.py
+    main.py
