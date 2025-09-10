@@ -8,8 +8,8 @@ class CliArgParser:
 
     def __init__(self, parser=None):
         """Unittests use the parser argument so that they can test the errors."""
-        if parser is not None:
-            self.arg_parser = parser
+        if parser is not None:  # pragma: no mutate
+            self.arg_parser = parser  # pragma: no mutate
         else:
             self.arg_parser = argparse.ArgumentParser(description="Runs Page-o-Mat")
 
