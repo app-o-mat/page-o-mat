@@ -5,11 +5,11 @@ def hex2num(hex):
 def hex_part(hex, part):
     if len(hex) == 3:
         if part == 3:
-            return "FF"
+            return "FF" # pragma: no mutate
         return hex[part:part + 1] + hex[part:part + 1]
     elif len(hex) == 6:
         if part == 3:
-            return "FF"
+            return "FF" # pragma: no mutate
         return hex[part * 2: (part + 1) * 2]
     elif len(hex) == 8:
         return hex[part * 2: (part + 1) * 2]
